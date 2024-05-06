@@ -1,0 +1,6 @@
+@OnlineKonobar_HostAddress = http://localhost:5008
+
+GET {{OnlineKonobar_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

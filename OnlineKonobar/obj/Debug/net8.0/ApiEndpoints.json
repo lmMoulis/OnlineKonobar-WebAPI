@@ -1,0 +1,128 @@
+[
+  {
+    "ContainingType": "OnlineKonobar.Controllers.ArtikalControllers",
+    "Method": "GetAllArtikli",
+    "RelativePath": "api/ArtikalControllers",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "OnlineKonobar.Controllers.ArtikalControllers",
+    "Method": "CreateArtikal",
+    "RelativePath": "api/ArtikalControllers",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "artikal",
+        "Type": "BLL.Models.Artikal",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "OnlineKonobar.Controllers.ArtikalControllers",
+    "Method": "DeleteArtikal",
+    "RelativePath": "api/ArtikalControllers/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "OnlineKonobar.Controllers.ArtikalControllers",
+    "Method": "UpdateArtikal",
+    "RelativePath": "api/ArtikalControllers/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "artikal",
+        "Type": "BLL.Models.Artikal",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "OnlineKonobar.Controllers.KorisnikController",
+    "Method": "GetAllKorisnici",
+    "RelativePath": "api/Korisnik",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "OnlineKonobar.Controllers.KorisnikController",
+    "Method": "CreateKorisnik",
+    "RelativePath": "api/Korisnik",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "korisnik",
+        "Type": "BLL.Models.Korisnik",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "OnlineKonobar.Controllers.KorisnikController",
+    "Method": "DeleteKorisnik",
+    "RelativePath": "api/Korisnik/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "OnlineKonobar.Controllers.KorisnikController",
+    "Method": "UpdateKorisnik",
+    "RelativePath": "api/Korisnik/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "korisnik",
+        "Type": "BLL.Models.Korisnik",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]
