@@ -10,3 +10,4 @@ C:\Users\Leon\source\repos\OnlineKonobar\BLL\obj\Debug\net8.0\refint\BLL.dll
 C:\Users\Leon\source\repos\OnlineKonobar\BLL\obj\Debug\net8.0\BLL.pdb
 C:\Users\Leon\source\repos\OnlineKonobar\BLL\obj\Debug\net8.0\ref\BLL.dll
 C:\Users\Leon\source\repos\OnlineKonobar\BLL\obj\Debug\net8.0\BLL.csproj.AssemblyReference.cache
+C:\Users\Leon\source\repos\OnlineKonobar\BLL\obj\Debug\net8.0\BLL.sourcelink.json
