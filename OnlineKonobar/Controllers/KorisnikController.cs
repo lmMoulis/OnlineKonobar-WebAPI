@@ -26,11 +26,17 @@ namespace OnlineKonobar.Controllers
             return NoContent();
         }
         [HttpPost]
-        public IActionResult CreateKorisnik([FromBody]Korisnik korisnik)
+        public IActionResult CreateKorisnik([FromBody] Korisnik korisnik)
         {
+            if (_korisnikService.CheckIfEmailExists(korisnik.Email))
+            {
+                return Conflict("Korisnik već postoji s ovim emailom.");
+            }
+
             var createKorisnik = _korisnikService.CreateKorisnik(korisnik);
             return Ok(createKorisnik);
         }
+
         [HttpPut("{id}")]
         public IActionResult UpdateKorisnik(int id, [FromBody]Korisnik korisnik)
         {
@@ -42,6 +48,19 @@ namespace OnlineKonobar.Controllers
             _korisnikService.UpdateKorisnik(id, korisnik);
             return NoContent();
         }
+
+        [HttpPost("login")]
+        public IActionResult Login([FromBody] Login model)
+        {
+            var korisnik = _korisnikService.Authenticate(model.Email, model.Password);
+            if (korisnik == null)
+                return Unauthorized("Neuspješna prijava. Provjerite e-mail i lozinku.");
+
+            // Ovdje možete dodati logiku za generiranje tokena za autentikaciju i slanje natrag korisniku.
+
+            return Ok(korisnik);
+        }
+
 
     }
 }

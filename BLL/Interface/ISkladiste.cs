@@ -15,7 +15,5 @@ namespace BLL.Interface
         void UpdateSkladiste(int id,Skladiste skladiste);
         void DeleteSkladiste(int id);
 
-
-
     }
 }

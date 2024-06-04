@@ -11,10 +11,11 @@ namespace BLL.Models
     [Table("Skladiste")]
     public class Skladiste
     {
-        [Key]
+       [Key]
+       public int Id { get; set; }
        public int Artikal_Id { get; set; }
        public int Dokument_Id { get; set; }
        public int Korisnik_Id { get; set; }
-       public int Kolicina_Id { get; set; }
+       public int Kolicina { get; set; }
     }
 }

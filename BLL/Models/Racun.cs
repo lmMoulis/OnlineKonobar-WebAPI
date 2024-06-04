@@ -10,9 +10,11 @@ namespace BLL.Models
     [Table("Racuni")]
     public class Racun
     {
+        public int Id { get; set; }
         public int Dokument_Id { get; set; }
         public string Broj_Racuna { get; set; }
         public double Ukupan_Iznos { get; set; }
+        public DateTime Datum { get; set; }
 
     }
 }

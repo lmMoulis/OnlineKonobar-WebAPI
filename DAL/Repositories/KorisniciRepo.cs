@@ -56,10 +56,21 @@ namespace DAL.Repositories
                 existingKorisnik.Broj_Mobitela = korisnik.Broj_Mobitela;
                 existingKorisnik.Spol = korisnik.Spol;
                 existingKorisnik.Datum_Rodenja = korisnik.Datum_Rodenja;
+                existingKorisnik.Pristup = korisnik.Pristup;
 
                 _dbContext.SaveChanges();
             }
         }
+        public Korisnik Authenticate(string email, string password)
+        {
+            return _dbContext.Korisnici.FirstOrDefault(k => k.Email == email && k.Lozinka == password);
+        }
+
+        public bool CheckIfEmailExists(string email)
+        {
+            return _dbContext.Korisnici.Any(k => k.Email == email);
+        }
+
 
     }
 }

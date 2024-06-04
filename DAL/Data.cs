@@ -17,6 +17,9 @@ namespace DAL
         public DbSet<Artikal> Artikli { get; set; }
         public DbSet<Kategorija> Kategorije { get; set; }
         public DbSet<Korisnik> Korisnici { get; set; }
-        public DbSet<Skladiste> StanjeSkladistas { get; set; }
+        public DbSet<Skladiste> StanjeSkladista { get; set; }
+        public DbSet<Prilagodba> Prilagodbe { get; set; }
+        public DbSet<Stavka> Stavka { get; set; }
+        public DbSet<Racun> Racuni { get; set; }
     }
 }

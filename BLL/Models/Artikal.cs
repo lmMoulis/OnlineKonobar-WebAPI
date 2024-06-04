@@ -15,7 +15,7 @@ namespace BLL.Models
         public string Naziv { get; set; }
         public decimal Cijena { get; set; }
         public int Kategorija_Id { get; set; }
-        public decimal Kolicina { get; set; }
-
+        public string Kolicina { get; set; }
+        public string? Slika { get; set; }
     }
 }

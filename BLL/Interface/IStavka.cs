@@ -10,9 +10,9 @@ namespace BLL.Interface
     public interface IStavka
     {
         Stavka CreateStavka (Stavka stavka);
-        ICollection<Stavka> GetAllStavka ();
-        Stavka GetStavkaId (Stavka stavka);
-        void UpdateStavka (int id,Stavka stavka);
-        void DeleteStavka (int id);
+        ICollection<Stavka> GetAllStavka();
+        Stavka GetStavkaId(string id);
+        void UpdateStavka (string id,Stavka stavka);
+        void DeleteStavka (string id);
     }
 }

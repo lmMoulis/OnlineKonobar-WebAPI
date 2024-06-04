@@ -20,6 +20,11 @@ builder.Services.AddSwaggerGen();
 // Dodajte registraciju servisa
 builder.Services.AddScoped<IArtikal, ArtikalRepo>();
 builder.Services.AddScoped<IKorisnik, KorisniciRepo>();
+builder.Services.AddScoped<IKategorija, KategorijaRepo>();
+builder.Services.AddScoped<IPrilagodba, PrilagodbaRepo>();
+builder.Services.AddScoped<IStavka, StavkaRepo>();
+builder.Services.AddScoped<ISkladiste, SkladisteRepo>();
+builder.Services.AddScoped<IRacun, RacunRepo>();
 
 
 builder.Services.AddDbContext<Data>(options =>

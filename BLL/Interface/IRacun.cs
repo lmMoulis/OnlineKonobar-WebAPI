@@ -10,7 +10,7 @@ namespace BLL.Interface
     public interface IRacun
     {
         Racun CreateRacun(Racun racun);
-        ICollection<Racun> GetAllRAcun();
+        ICollection<Racun> GetAllRacun();
         Racun GetRacunId(int id);
         void UpdateRacun(int id,Racun racun);
         void DeleteRacun(int id);

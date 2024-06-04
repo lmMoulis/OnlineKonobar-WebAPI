@@ -14,5 +14,7 @@ namespace BLL.Interface
         Korisnik GetKorisnikId(int id);
         void UpdateKorisnik(int id, Korisnik korisnik);
         void DeleteKorisnik(int id);
+        Korisnik Authenticate(string email, string password);
+        bool CheckIfEmailExists(string email);
     }
 }

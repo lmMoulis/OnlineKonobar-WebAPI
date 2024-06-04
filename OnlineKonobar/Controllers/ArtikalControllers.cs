@@ -20,6 +20,16 @@ namespace OnlineKonobar.Controllers
             var artili = _artikalService.GetAllArtikal();
             return Ok(artili);
         }
+        [HttpGet("{id}")]
+        public IActionResult GetArtikalById(int id)
+        {
+            var artikal = _artikalService.GetArtikaldId(id);
+            if (artikal == null)
+            {
+                return NotFound();
+            }
+            return Ok(artikal);
+        }
         [HttpDelete("{id}")]
         public IActionResult DeleteArtikal(int id)
         {

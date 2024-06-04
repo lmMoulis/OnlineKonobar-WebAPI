@@ -18,6 +18,7 @@ namespace BLL.Models
         public string Broj_Mobitela {  get; set; }
         public string Spol {  get; set; }
         public DateTime? Datum_Rodenja { get; set; }
+        public int? Pristup { get; set; }
 
     }
 }
