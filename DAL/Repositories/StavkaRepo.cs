@@ -52,6 +52,7 @@ namespace DAL.Repositories
                 existingStavka.Kolicina = stavka.Kolicina;
                 existingStavka.Dodatak_Id = stavka.Dodatak_Id;
                 existingStavka.Cijena = stavka.Cijena;
+                
 
                 _dbContext.SaveChanges();
             }

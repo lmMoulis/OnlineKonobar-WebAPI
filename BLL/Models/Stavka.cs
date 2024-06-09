@@ -17,7 +17,8 @@ namespace BLL.Models
         public int Dokument_id { get; set; }
         public int Kolicina { get; set; }
         public int? Dodatak_Id { get; set; }
-        public float Cijena { get; set; }
+        public decimal Cijena { get; set; }
+        
 
     }
 }

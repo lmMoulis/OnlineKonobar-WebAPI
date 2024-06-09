@@ -19,6 +19,16 @@ namespace OnlineKonobar.Controllers
             var korisnik = _korisnikService.GetAllKorisnik();
             return Ok(korisnik);
         }
+        [HttpGet("{id}")]
+        public IActionResult GetArtikalById(int id)
+        {
+            var artikal = _korisnikService.GetKorisnikId(id);
+            if (artikal == null)
+            {
+                return NotFound();
+            }
+            return Ok(artikal);
+        }
         [HttpDelete("{id}")]
         public IActionResult DeleteKorisnik(int id)
         {

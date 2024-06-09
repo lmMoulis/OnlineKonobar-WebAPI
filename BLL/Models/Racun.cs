@@ -13,8 +13,10 @@ namespace BLL.Models
         public int Id { get; set; }
         public int Dokument_Id { get; set; }
         public string Broj_Racuna { get; set; }
-        public double Ukupan_Iznos { get; set; }
+        public decimal Ukupan_Iznos { get; set; }
         public DateTime Datum { get; set; }
+        public int Korisnik_Id { get; set; }
+        public string Status { get; set; }
 
     }
 }
