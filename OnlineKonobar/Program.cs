@@ -30,6 +30,15 @@ builder.Services.AddScoped<IRacun, RacunRepo>();
 builder.Services.AddDbContext<Data>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+// Configure CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowSpecificOrigin",
+        builder => builder
+            .WithOrigins("http://localhost:5500") // Dodajte URL-ove koje želite dozvoliti
+            .AllowAnyHeader()
+            .AllowAnyMethod());
+});
 
 var app = builder.Build();
 
@@ -42,6 +51,7 @@ if (app.Environment.IsDevelopment())
 
 //app.UseHttpsRedirection();
 
+app.UseCors("AllowSpecificOrigin");
 app.UseAuthorization();
 app.UseAuthentication();
 app.UseAuthorization();

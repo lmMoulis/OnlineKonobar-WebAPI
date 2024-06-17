@@ -19,6 +19,7 @@ namespace BLL.Models
         public string Spol {  get; set; }
         public DateTime? Datum_Rodenja { get; set; }
         public int? Pristup { get; set; }
+        public string? Slika { get; set; }
 
     }
 }

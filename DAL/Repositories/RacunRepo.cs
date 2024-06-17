@@ -46,6 +46,9 @@ namespace DAL.Repositories
 				existingRacun.Datum = racun.Datum;
 				existingRacun.Korisnik_Id = racun.Korisnik_Id;
 				existingRacun.Status = racun.Status;
+				existingRacun.Konobar_Id = racun.Konobar_Id;
+				existingRacun.Preuzeto = racun.Preuzeto;
+				existingRacun.Stol = racun.Stol;
 				_dbContext.SaveChanges();
 			}
 

@@ -17,6 +17,10 @@ namespace BLL.Models
         public DateTime Datum { get; set; }
         public int Korisnik_Id { get; set; }
         public string Status { get; set; }
+        public int? Konobar_Id { get; set; }
+        public bool Preuzeto { get; set; }
+        public string? Stol { get; set; }
+
 
     }
 }

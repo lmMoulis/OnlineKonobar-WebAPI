@@ -57,6 +57,7 @@ namespace DAL.Repositories
                 existingKorisnik.Spol = korisnik.Spol;
                 existingKorisnik.Datum_Rodenja = korisnik.Datum_Rodenja;
                 existingKorisnik.Pristup = korisnik.Pristup;
+                existingKorisnik.Slika = korisnik.Slika;
 
                 _dbContext.SaveChanges();
             }
