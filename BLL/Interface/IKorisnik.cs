@@ -11,6 +11,7 @@ namespace BLL.Interface
     {
         Korisnik CreateKorisnik(Korisnik korisnik);
         ICollection<Korisnik> GetAllKorisnik();
+        ICollection<Korisnik> GetKorisniciByPristupId(int pristupId);
         Korisnik GetKorisnikId(int id);
         void UpdateKorisnik(int id, Korisnik korisnik);
         void DeleteKorisnik(int id);

@@ -25,7 +25,7 @@ namespace DAL.Repositories
         }
        
 
-        public void DeleteStavka(string id)
+        public void DeleteStavka(int id)
         {
             var stavka = _dbContext.Stavka.Find(id);
             if (stavka != null)
@@ -35,12 +35,15 @@ namespace DAL.Repositories
             }
         }
 
-        public Stavka GetStavkaId(string id)
+        public Stavka GetStavkaId(int id)
         {
             return _dbContext.Stavka.Find(id);
         }
-
-        public void UpdateStavka(string id, Stavka stavka)
+        public ICollection<Stavka> GetStavkaOrderId(string orderId)
+        {
+            return _dbContext.Stavka.Where(st => st.Order_Id == orderId).ToList();
+        }
+        public void UpdateStavka(int id, Stavka stavka)
         {
             var existingStavka = _dbContext.Stavka.Find(id);
             if (existingStavka != null)

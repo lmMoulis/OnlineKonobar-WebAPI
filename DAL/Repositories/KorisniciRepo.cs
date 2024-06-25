@@ -38,12 +38,14 @@ namespace DAL.Repositories
                 _dbContext.SaveChanges();
             }
         }
-
         public Korisnik GetKorisnikId(int id)
         {
             return _dbContext.Korisnici.Find(id);
         }
-
+        public ICollection<Korisnik> GetKorisniciByPristupId(int pristupId)
+        {
+            return _dbContext.Korisnici.Where(ko => ko.Pristup == pristupId).ToList();
+        }
         public void UpdateKorisnik(int id, Korisnik korisnik)
         {
             var existingKorisnik = _dbContext.Korisnici.Find(id);
@@ -54,7 +56,6 @@ namespace DAL.Repositories
                 existingKorisnik.Email = korisnik.Email;
                 existingKorisnik.Lozinka = korisnik.Lozinka;
                 existingKorisnik.Broj_Mobitela = korisnik.Broj_Mobitela;
-                existingKorisnik.Spol = korisnik.Spol;
                 existingKorisnik.Datum_Rodenja = korisnik.Datum_Rodenja;
                 existingKorisnik.Pristup = korisnik.Pristup;
                 existingKorisnik.Slika = korisnik.Slika;

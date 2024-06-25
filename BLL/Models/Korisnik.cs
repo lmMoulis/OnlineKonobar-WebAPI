@@ -16,9 +16,8 @@ namespace BLL.Models
         public string Email { get; set; }
         public string Lozinka { get; set; }
         public string Broj_Mobitela {  get; set; }
-        public string Spol {  get; set; }
         public DateTime? Datum_Rodenja { get; set; }
-        public int? Pristup { get; set; }
+        public int Pristup { get; set; }
         public string? Slika { get; set; }
 
     }

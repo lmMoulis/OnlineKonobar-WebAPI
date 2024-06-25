@@ -58,6 +58,16 @@ namespace OnlineKonobar.Controllers
             _korisnikService.UpdateKorisnik(id, korisnik);
             return NoContent();
         }
+        [HttpGet("pristup/{pristupId}")]
+        public IActionResult GetKorisniciByPristupId(int pristupId)
+        {
+            var korisnici = _korisnikService.GetKorisniciByPristupId(pristupId);
+            if (korisnici == null || korisnici.Count == 0)
+            {
+                return NotFound();
+            }
+            return Ok(korisnici);
+        }
 
         [HttpPost("login")]
         public IActionResult Login([FromBody] Login model)

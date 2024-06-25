@@ -55,6 +55,8 @@ namespace OnlineKonobar.Controllers
 			_racunService.UpdateRacun(id, racun);
 			return NoContent();
         }
+		
+
         [HttpPut("{id}")]
         public IActionResult UpdateSkladiste(int id, [FromBody] Racun racun)
         {

@@ -20,6 +20,16 @@ namespace OnlineKonobar.Controllers
             var prilagodbe = _prilagodbaService.GetAllPrilagodba();
             return Ok(prilagodbe);
         }
+        [HttpGet("{id}")]
+        public IActionResult GetPrilagodbaById(int id)
+        {
+            var prilagodbe = _prilagodbaService.GetPrilagodbaId(id);
+            if (prilagodbe == null)
+            {
+                return NotFound();
+            }
+            return Ok(prilagodbe);
+        }
         [HttpDelete("{id}")]
         public IActionResult DeletePrilagodba(int id)
         {

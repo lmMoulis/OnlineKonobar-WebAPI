@@ -9,9 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Configuration
 builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 
-
 // Add services to the container.
-
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -26,7 +24,6 @@ builder.Services.AddScoped<IStavka, StavkaRepo>();
 builder.Services.AddScoped<ISkladiste, SkladisteRepo>();
 builder.Services.AddScoped<IRacun, RacunRepo>();
 
-
 builder.Services.AddDbContext<Data>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
@@ -35,7 +32,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigin",
         builder => builder
-            .WithOrigins("http://localhost:5500") // Dodajte URL-ove koje želite dozvoliti
+            .WithOrigins("http://127.0.0.1:5500") // Make sure to not include trailing slash
             .AllowAnyHeader()
             .AllowAnyMethod());
 });
@@ -52,8 +49,6 @@ if (app.Environment.IsDevelopment())
 //app.UseHttpsRedirection();
 
 app.UseCors("AllowSpecificOrigin");
-app.UseAuthorization();
-app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 

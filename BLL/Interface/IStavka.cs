@@ -11,8 +11,9 @@ namespace BLL.Interface
     {
         Stavka CreateStavka (Stavka stavka);
         ICollection<Stavka> GetAllStavka();
-        Stavka GetStavkaId(string id);
-        void UpdateStavka (string id,Stavka stavka);
-        void DeleteStavka (string id);
+        Stavka GetStavkaId(int id);
+        ICollection<Stavka> GetStavkaOrderId(string orderId);
+        void UpdateStavka (int id,Stavka stavka);
+        void DeleteStavka (int id);
     }
 }

@@ -21,10 +21,20 @@ namespace OnlineKonobar.Controllers
             return Ok(stavka);
         }
         [HttpDelete("{id}")]
-        public IActionResult DeleteStavka(string id)
+        public IActionResult DeleteStavka(int id)
         {
             _stavkaService.DeleteStavka(id);
             return NoContent();
+        }
+        [HttpGet("{orderId}")]
+        public IActionResult GetStavkaByOrderId(string orderId)
+        {
+            var stavke = _stavkaService.GetStavkaOrderId(orderId);
+            if (stavke == null || stavke.Count == 0)
+            {
+                return NotFound();
+            }
+            return Ok(stavke);
         }
         [HttpPost]
         public IActionResult CreateStavka([FromBody] Stavka stavka)
@@ -33,7 +43,7 @@ namespace OnlineKonobar.Controllers
             return Ok(createdStavka);
         }
         [HttpPut("{id}")]
-        public IActionResult UpdateStavka(string id, [FromBody] Stavka stavka)
+        public IActionResult UpdateStavka(int id, [FromBody] Stavka stavka)
         {
 
             var existingStavka = _stavkaService.GetStavkaId(id);
