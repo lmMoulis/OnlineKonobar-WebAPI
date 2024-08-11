@@ -42,7 +42,7 @@ namespace DAL.Repositories
 			if(existingSkladiste !=null)
 			{
 				existingSkladiste.Id = skladiste.Id;
-				existingSkladiste.Artikal_Id = skladiste.Artikal_Id;
+				existingSkladiste.Artikal = skladiste.Artikal;
 				existingSkladiste.Dokument_Id = skladiste.Dokument_Id;
 				existingSkladiste.Korisnik_Id = skladiste.Korisnik_Id;
 				existingSkladiste.Kolicina = skladiste.Kolicina;

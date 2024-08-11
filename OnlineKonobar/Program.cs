@@ -23,6 +23,7 @@ builder.Services.AddScoped<IPrilagodba, PrilagodbaRepo>();
 builder.Services.AddScoped<IStavka, StavkaRepo>();
 builder.Services.AddScoped<ISkladiste, SkladisteRepo>();
 builder.Services.AddScoped<IRacun, RacunRepo>();
+builder.Services.AddScoped<INormativi, NormativiRepo>();
 
 builder.Services.AddDbContext<Data>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
