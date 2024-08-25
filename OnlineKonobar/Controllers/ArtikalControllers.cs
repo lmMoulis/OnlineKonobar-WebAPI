@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using BLL.Interface;
 using BLL.Models;
+using DAL.Services;
 
 
 namespace OnlineKonobar.Controllers
@@ -10,9 +11,11 @@ namespace OnlineKonobar.Controllers
     public class ArtikalControllers : Controller
     {
         public readonly IArtikal _artikalService;
-        public ArtikalControllers(IArtikal artikalService)
+        private readonly IInventoryService _inventoryService;
+        public ArtikalControllers(IArtikal artikalService, IInventoryService inventoryService)
         {
             _artikalService = artikalService;
+            _inventoryService = inventoryService;
         }
         [HttpGet]
         public IActionResult GetAllArtikli() 
@@ -45,21 +48,34 @@ namespace OnlineKonobar.Controllers
         [HttpPut("{id}")]
         public IActionResult UpdateArtikal(int id, [FromBody] Artikal artikal)
         {
-            
             var existingArtikal = _artikalService.GetArtikaldId(id);
             if (existingArtikal == null)
             {
                 return NotFound();
             }
-
-            
             _artikalService.UpdateArtikal(id, artikal);
 
-            
             return NoContent(); 
         }
-
-
+        [HttpGet("days-remaining/{id}")]
+        public IActionResult GetDaysRemaining(int id)
+        {
+            try
+            {
+                var daysRemaining = _inventoryService.CalculateDaysRemaining(id);
+                return Ok(new { DaysRemaining = daysRemaining });
+            }
+            catch (InvalidOperationException ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+        [HttpGet("days-remaining")]
+        public IActionResult GetDaysRemainingForAllArtikli()
+        {
+            var daysRemainingList = _inventoryService.CalculateDaysRemainingForAll();
+            return Ok(daysRemainingList);
+        }
 
     }
 }

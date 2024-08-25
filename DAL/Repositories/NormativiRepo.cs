@@ -60,5 +60,9 @@ namespace DAL.Repositories
         {
             return _dbContext.Normativi.Where(n => n.Artikal_Id == articleId).ToList();
         }
+        public Normativi GetNormativiByArticleId(int artikalId)
+        {
+            return _dbContext.Normativi.FirstOrDefault(n => n.Artikal_Id == artikalId); // Provjerite da li vraća jedan objekt
+        }
     }
 }

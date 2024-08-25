@@ -14,5 +14,6 @@ namespace BLL.Interface
         Racun GetRacunId(int id);
         void UpdateRacun(int id,Racun racun);
         void DeleteRacun(int id);
+        ICollection<Racun> GetRacunFromDate(DateTime startDate, DateTime endDate);
     }
 }

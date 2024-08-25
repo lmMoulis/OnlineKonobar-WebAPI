@@ -53,6 +53,12 @@ namespace DAL.Repositories
 			}
 
         }
+        public ICollection<Racun> GetRacunFromDate(DateTime startDate, DateTime endDate)
+        {
+            return _dbContext.Racuni
+                .Where(r => r.Datum >= startDate && r.Datum <= endDate)
+                .ToList();
+        }
     }
 	
 }

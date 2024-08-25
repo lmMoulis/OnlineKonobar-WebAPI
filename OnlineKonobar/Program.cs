@@ -2,6 +2,7 @@ using BLL.Interface;
 using BLL.Models;
 using DAL;
 using DAL.Repositories;
+using DAL.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,6 +25,9 @@ builder.Services.AddScoped<IStavka, StavkaRepo>();
 builder.Services.AddScoped<ISkladiste, SkladisteRepo>();
 builder.Services.AddScoped<IRacun, RacunRepo>();
 builder.Services.AddScoped<INormativi, NormativiRepo>();
+
+
+builder.Services.AddScoped<IInventoryService, InventoryService>();
 
 builder.Services.AddDbContext<Data>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
