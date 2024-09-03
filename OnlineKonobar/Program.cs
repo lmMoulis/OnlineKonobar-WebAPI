@@ -25,7 +25,8 @@ builder.Services.AddScoped<IStavka, StavkaRepo>();
 builder.Services.AddScoped<ISkladiste, SkladisteRepo>();
 builder.Services.AddScoped<IRacun, RacunRepo>();
 builder.Services.AddScoped<INormativi, NormativiRepo>();
-
+builder.Services.AddScoped<IPrimka, PrimkaRepo > ();
+builder.Services.AddScoped<IOtpis, OtpisRepo > ();
 
 builder.Services.AddScoped<IInventoryService, InventoryService>();
 

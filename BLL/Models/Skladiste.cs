@@ -17,5 +17,6 @@ namespace BLL.Models
        public int Dokument_Id { get; set; }
        public int Korisnik_Id { get; set; }
        public int Kolicina { get; set; }
+       public string Slike { get; set; }
     }
 }

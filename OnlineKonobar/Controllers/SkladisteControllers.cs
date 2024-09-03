@@ -53,7 +53,9 @@ namespace OnlineKonobar.Controllers
             _skladisteService.UpdateSkladiste(id, skladiste);
             return NoContent();
         }
-      
+     
+
+
     }
 }
 

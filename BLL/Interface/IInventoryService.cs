@@ -8,13 +8,14 @@ namespace BLL.Interface
 {
     public interface IInventoryService
     {
-        double CalculateDaysRemaining(int artikalId);
+        double? CalculateDaysRemaining(int artikalId);
         List<ArtikalDaysRemaining> CalculateDaysRemainingForAll();
     }
     public class ArtikalDaysRemaining
     {
+
         public int ArtikalId { get; set; }
         public string ArtikalNaziv { get; set; }
-        public double DaysRemaining { get; set; }
+        public string DaysRemainingText { get; set; }
     }
 }

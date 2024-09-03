@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace BLL.Models
 {
-    [Table("Primke")]
-    public class Primka
+    [Table("Otpis")]
+    public class Otpis
     {
         public int Id { get; set; }
-        public int Artikal_Id { get; set; }
+        public int Artikal_Id {  get; set; }
         public int Kolicina { get; set; }
-        public DateTime Datum {  get; set; }
+        public DateTime Datum { get; set; }
     }
 }

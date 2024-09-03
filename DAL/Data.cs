@@ -22,5 +22,8 @@ namespace DAL
         public DbSet<Stavka> Stavka { get; set; }
         public DbSet<Racun> Racuni { get; set; }
         public DbSet<Normativi>Normativi { get; set; }
+        public DbSet<Primka>Primka { get; set; }
+        public DbSet<Otpis>Otpis { get; set; }
+        
     }
 }

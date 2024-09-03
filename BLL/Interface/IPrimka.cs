@@ -11,8 +11,11 @@ namespace BLL.Interface
     {
         Primka CreatePrimka(Primka primka);
         ICollection<Primka> GetAllPrimka();
+        ICollection<Primka> GetPrimkeByStockIdAndDate(int stockId, string date);
+        ICollection<Primka> GetReceiptsByDate(string date);
         Primka GetPrimkaId(int id);
         void UpdatePrimka(int id, Primka primka);
         void DeletePrimka(int id);
+        
     }
 }

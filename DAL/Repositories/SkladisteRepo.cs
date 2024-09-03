@@ -46,6 +46,7 @@ namespace DAL.Repositories
 				existingSkladiste.Dokument_Id = skladiste.Dokument_Id;
 				existingSkladiste.Korisnik_Id = skladiste.Korisnik_Id;
 				existingSkladiste.Kolicina = skladiste.Kolicina;
+				existingSkladiste.Slike=skladiste.Slike;
 
 				_dbContext.SaveChanges();
 			}
