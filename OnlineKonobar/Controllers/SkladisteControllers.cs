@@ -1,6 +1,7 @@
 ﻿using System;
 using BLL.Interface;
 using BLL.Models;
+using DAL.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace OnlineKonobar.Controllers
@@ -10,9 +11,11 @@ namespace OnlineKonobar.Controllers
     public class SkladisteControllers : Controller
     {
         public readonly ISkladiste _skladisteService;
-        public SkladisteControllers(ISkladiste skladisteService)
+        private readonly IInventoryService _inventoryService;
+        public SkladisteControllers(ISkladiste skladisteService, IInventoryService inventoryService)
         {
             _skladisteService = skladisteService;
+            _inventoryService = inventoryService;
         }
         [HttpGet]
         public IActionResult GetAllSkladiste()
@@ -53,7 +56,25 @@ namespace OnlineKonobar.Controllers
             _skladisteService.UpdateSkladiste(id, skladiste);
             return NoContent();
         }
-     
+        [HttpGet("days-remaining/{id}")]
+        public IActionResult GetDaysRemaining(int id)
+        {
+            try
+            {
+                var daysRemaining = _inventoryService.CalculateDaysRemaining(id);
+                return Ok(new { DaysRemaining = daysRemaining });
+            }
+            catch (InvalidOperationException ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+        [HttpGet("days-remaining")]
+        public IActionResult GetDaysRemainingForAllArtikli()
+        {
+            var daysRemainingList = _inventoryService.CalculateDaysRemainingForAll();
+            return Ok(daysRemainingList);
+        }
 
 
     }

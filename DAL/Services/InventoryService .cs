@@ -3,39 +3,47 @@ using DAL.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DAL.Services
 {
+    using Microsoft.Extensions.Logging;
+
     public class InventoryService : IInventoryService
     {
-        private readonly IArtikal _artikalRepo;
         private readonly ISkladiste _skladisteRepo;
         private readonly IStavka _stavkaRepo;
         private readonly IRacun _racunaRepo;
         private readonly INormativi _normativiRepo;
+        private readonly ILogger<InventoryService> _logger; // Dodano
 
         public InventoryService(
-            IArtikal artikalRepo,
             ISkladiste skladisteRepo,
             IStavka stavkaRepo,
             IRacun racunaRepo,
-            INormativi normativiRepo)
+            INormativi normativiRepo,
+            ILogger<InventoryService> logger) // Dodano
         {
-            _artikalRepo = artikalRepo;
             _skladisteRepo = skladisteRepo;
             _stavkaRepo = stavkaRepo;
             _racunaRepo = racunaRepo;
             _normativiRepo = normativiRepo;
+            _logger = logger; // Dodano
         }
+
+
         public double? CalculateDaysRemaining(int artikalId)
         {
             DateTime today = DateTime.Now;
             DateTime sevenDaysAgo = today.AddDays(-7);
 
+            // Logiramo Artikal_Id za koji radimo izračun
+            _logger.LogInformation($"Započinje izračun za Artikal_Id: {artikalId}");
+
             // Dobavi sve račune u zadnjih 7 dana
             var racuni = _racunaRepo.GetRacunFromDate(sevenDaysAgo, today);
+
+            // Logiramo koliko je računa dohvaćeno
+            _logger.LogInformation($"Dohvaćeno računa: {racuni.Count()} za Artikal_Id: {artikalId}");
 
             // Filtriraj stavke prema računima
             var totalConsumption = _stavkaRepo.GetAllStavka()
@@ -43,69 +51,82 @@ namespace DAL.Services
                             racuni.Any(r => r.Dokument_Id == s.Dokument_id))
                 .Sum(s => s.Kolicina);
 
+            _logger.LogInformation($"Ukupna potrošnja za Artikal_Id: {artikalId} iznosi {totalConsumption}.");
+
             if (totalConsumption == 0)
             {
-                // Ako nema potrošnje, vraća null
+                _logger.LogInformation($"Nema potrošnje za Artikal_Id: {artikalId}");
                 return null;
             }
 
-            // Dobavi količinu u skladištu
-            var artikal = _artikalRepo.GetArtikaldId(artikalId);
-            if (artikal == null)
-            {
-                throw new InvalidOperationException("Artikal nije pronađen.");
-            }
+            // Dobavi sve normative za taj artikal
+            var normativi = _normativiRepo.GetNormativByArticleId(artikalId);
 
-            var stockQuantity = _skladisteRepo.GetAllSkladiste()
-                .Where(s => s.Artikal == artikal.Naziv)
-                .Sum(s => s.Kolicina);
-
-            if (stockQuantity == 0)
+            if (normativi == null || !normativi.Any())
             {
-                // Ako nema zaliha, vraća null
-                return null;
-            }
-
-            // Dobavi normativ za taj artikal
-            var normativ = _normativiRepo.GetNormativiByArticleId(artikalId);
-            if (normativ == null)
-            {
+                _logger.LogError($"Nema normativa za Artikal_Id: {artikalId}");
                 throw new InvalidOperationException("Normativ za ovaj artikal nije pronađen.");
             }
 
-            // Izračunaj prosječnu dnevnu potrošnju u skladu s normativom
-            double dailyConsumption = (totalConsumption * normativ.Normativ) / 7.0;
+            double? minDaysRemaining = null;
 
-            // Izračunaj koliko dana zalihe traju
-            double daysRemaining = stockQuantity / dailyConsumption;
+            foreach (var normativ in normativi)
+            {
+                // Dobavi količinu u skladištu za taj normativni artikal
+                var stockQuantity = _skladisteRepo.GetAllSkladiste()
+                    .Where(s => s.Id == normativ.Skladiste_Id)
+                    .Sum(s => s.Kolicina);
 
-            // Zaokruži na cijeli broj
-            return Math.Round(daysRemaining);
+                _logger.LogInformation($"Za Artikal_Id {artikalId}, normativ: {normativ.Naziv}, zaliha u skladištu: {stockQuantity}.");
+
+                if (stockQuantity == 0)
+                {
+                    _logger.LogInformation($"Nema zaliha za normativ: {normativ.Naziv} za Artikal_Id: {artikalId}");
+                    return null;
+                }
+
+                double adjustedConsumption = totalConsumption * normativ.Normativ;
+                double dailyConsumption = adjustedConsumption / 7.0;
+
+                double daysRemaining = stockQuantity / dailyConsumption;
+
+                _logger.LogInformation($"Potrošnja po danu za Artikal_Id {artikalId} iznosi {dailyConsumption}. Zaliha u skladištu: {stockQuantity}, prilagođena potrošnja: {adjustedConsumption}. Preostali dani: {daysRemaining}");
+
+                // U ovom slučaju ne uzimamo minimum dana
+                daysRemaining = Math.Round(daysRemaining);
+
+                minDaysRemaining = daysRemaining;
+            }
+
+            _logger.LogInformation($"Izračun preostalih dana za Artikal_Id {artikalId}: {minDaysRemaining} dana.");
+
+            return minDaysRemaining;
         }
 
+
+
+        // Funkcija za računanje preostalih dana za sve artikle
         public List<ArtikalDaysRemaining> CalculateDaysRemainingForAll()
         {
             var results = new List<ArtikalDaysRemaining>();
 
-            var allArtikli = _artikalRepo.GetAllArtikal();
+            // Dohvati sve artikle iz skladišta
+            var allSkladisteArtikli = _skladisteRepo.GetAllSkladiste().ToList();
 
-            foreach (var artikal in allArtikli)
+            foreach (var skladisteArtikal in allSkladisteArtikli)
             {
-                double? daysRemaining = CalculateDaysRemaining(artikal.Id);
+                // Računamo preostale dane za svaki artikal koristeći njegov Artikal_Id
+                double? daysRemaining = CalculateDaysRemaining(skladisteArtikal.Id);
 
                 results.Add(new ArtikalDaysRemaining
                 {
-                    ArtikalId = artikal.Id,
-                    ArtikalNaziv = artikal.Naziv,
-                    DaysRemainingText = daysRemaining.HasValue ? Math.Round(daysRemaining.Value).ToString() : "N/A"
+                    ArtikalId = skladisteArtikal.Id,
+                    ArtikalNaziv = skladisteArtikal.Artikal,
+                    DaysRemainingText = daysRemaining.HasValue ? daysRemaining.Value.ToString() : "N/A"
                 });
             }
 
             return results;
         }
-
-
     }
 }
-
-
